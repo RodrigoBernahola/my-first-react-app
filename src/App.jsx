@@ -1,11 +1,44 @@
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+
+const COLORS = ["pink", "green", "blue", "yellow", "purple"];
 
 function App() {
+  const [backgroundColor, setBackgroundColor] = useState(COLORS[0]);
+  const [counter, setCounter] = useState(0);
+
+  const onButtonClick = (color) => () => {
+    setBackgroundColor(color);
+  };
+
+  function handleSetCounter() {
+    setCounter(counter + 1);
+  }
+
   return (
-    <h1>
-      Hello World!
-    </h1>
-  )
+    <>
+    <h1>counter: {counter}</h1>
+    <button type="button" onClick={handleSetCounter}>Add 1</button>
+      <div
+      className="App"
+      style={{
+        backgroundColor,
+      }}
+    >
+      {COLORS.map((color) => (
+        <button
+          type="button"
+          key={color}
+          onClick={onButtonClick(color)}
+          className={backgroundColor === color ? "selected" : ""}
+        >
+          {color}
+        </button>
+      ))}
+    </div>
+    </>
+    
+  );
 }
 
-export default App
+export default App;
